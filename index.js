@@ -31,16 +31,10 @@ async function run() {
     // const userCollection = client.db('productsDB').collection('users');
 
     app.get('/products', async (req,res)=>{
-        const cursor = productCollection.find().sort({price: -1}).limit(6);
+        const cursor = productCollection.find();
         const result = await cursor.toArray();
         res.send(result);
     })
-
-    // app.get('/products', async (req,res)=>{
-    //     const cursor = productCollection.find();
-    //     const result = await cursor.toArray();
-    //     res.send(result);
-    // })
 
     app.get('/products/:id', async(req,res)=>{
         const id = req.params.id;
