@@ -36,16 +36,38 @@ async function run() {
         res.send(result);
     })
 
-    app.get('/products/:id', async(req,res)=>{
-        const id = req.params.id;
-        const query = {_id: new ObjectId(id)};
-        const result = await productCollection.findOne(query);
+    // .sort({price: 1});
+    // all sports
+    app.get('/all-products', async (req,res)=>{
+        const cursor = productCollection.find().sort({price: 1})
+        const result = await cursor.toArray();
         res.send(result);
     })
 
+    // product card -6
+    app.get('/fixed-products', async (req,res)=>{
+        const cursor = productCollection.find().limit(6);
+        const result = await cursor.toArray();
+        res.send(result);
+    })
+
+    // app.get('/products/:id', async(req,res)=>{
+    //     const id = req.params.id;
+    //     const query = {_id: new ObjectId(id)};
+    //     const result = await productCollection.findOne(query);
+    //     res.send(result);
+    // })
+
+    // for my equipment
+    app.get('/products/email', async(req,res)=>{
+        const email = req.query.email;
+        const result = await productCollection.find({userEmail: email}).toArray();
+        res.send(result);
+    })
+      
+
     app.post('/products', async(req,res)=>{
         const newProduct = req.body;
-        console.log(newProduct);
         const result = await productCollection.insertOne(newProduct);
         res.send(result);
     })
@@ -92,7 +114,7 @@ async function run() {
     //     res.send(result);
     // })
 
-    
+
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
     // console.log("Pinged your deployment. You successfully connected to MongoDB!");
