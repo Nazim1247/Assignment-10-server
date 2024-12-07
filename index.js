@@ -36,7 +36,6 @@ async function run() {
         res.send(result);
     })
 
-    // .sort({price: 1});
     // all sports
     app.get('/all-products', async (req,res)=>{
         const cursor = productCollection.find().sort({price: 1})
@@ -51,16 +50,9 @@ async function run() {
         res.send(result);
     })
 
-    // app.get('/products/:id', async(req,res)=>{
-    //     const id = req.params.id;
-    //     const query = {_id: new ObjectId(id)};
-    //     const result = await productCollection.findOne(query);
-    //     res.send(result);
-    // })
-
     // for my equipment
-    app.get('/products/email', async(req,res)=>{
-        const email = req.query.email;
+    app.get('/user-products/:email', async(req,res)=>{
+        const email = req.params.email;
         const result = await productCollection.find({userEmail: email}).toArray();
         res.send(result);
     })
