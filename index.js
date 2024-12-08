@@ -28,7 +28,7 @@ async function run() {
 
     const productCollection = client.db('productsDB').collection('products');
 
-    // const userCollection = client.db('productsDB').collection('users');
+    const userCollection = client.db('productsDB').collection('users');
 
     app.get('/products', async (req,res)=>{
         const cursor = productCollection.find();
@@ -93,18 +93,18 @@ async function run() {
     })
 
     // users related apis
-    // app.get('/users', async(req,res)=>{
-    //     const cursor = userCollection.find();
-    //     const result = await cursor.toArray();
-    //     res.send(result);
-    // })
+    app.get('/users', async(req,res)=>{
+        const cursor = userCollection.find();
+        const result = await cursor.toArray();
+        res.send(result);
+    })
 
-    // app.post('/users', async(req,res)=>{
-    //     const newUser = req.body;
-    //     console.log('creating new user', newUser);
-    //     const result = await userCollection.insertOne(newUser);
-    //     res.send(result);
-    // })
+    app.post('/users', async(req,res)=>{
+        const newUser = req.body;
+        console.log('creating new user', newUser);
+        const result = await userCollection.insertOne(newUser);
+        res.send(result);
+    })
 
 
     // Send a ping to confirm a successful connection
