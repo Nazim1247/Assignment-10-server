@@ -45,7 +45,7 @@ async function run() {
 
     // product card -6
     app.get('/fixed-products', async (req,res)=>{
-        const cursor = productCollection.find().limit(6);
+        const cursor = productCollection.find().limit(8);
         const result = await cursor.toArray();
         res.send(result);
     })
